@@ -56,9 +56,119 @@ public class HttpHandler {
 
         }
         catch (Exception e){
-
+            return "error";
         }
 
-        return _global;
     }
+
+
+
+    public String registarVenta(String _service, String imei, String json) {
+
+        String _res;
+
+        try{
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            String _url = _global + _service;
+
+            HttpClient httpClient = (HttpClient) new DefaultHttpClient();
+
+            HttpPost httppost = new HttpPost(_url);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("imei", imei));
+            params.add(new BasicNameValuePair("json", json));
+
+            httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+
+            HttpResponse resp = httpClient.execute(httppost);
+
+            HttpEntity ent = resp.getEntity();
+
+            _res = EntityUtils.toString(ent);
+
+            return _res;
+
+        }
+        catch (Exception e){
+            return "error";
+        }
+    }
+
+    public String registarFactura(String _service, String idVenta, String nit, String razonSocial) {
+
+        String _res;
+
+        try{
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            String _url = _global + _service;
+
+            HttpClient httpClient = (HttpClient) new DefaultHttpClient();
+
+            HttpPost httppost = new HttpPost(_url);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("idVenta", idVenta));
+            params.add(new BasicNameValuePair("nit", nit));
+            params.add(new BasicNameValuePair("razonSocial", razonSocial));
+
+            httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+
+            HttpResponse resp = httpClient.execute(httppost);
+
+            HttpEntity ent = resp.getEntity();
+
+            _res = EntityUtils.toString(ent);
+
+            return _res;
+
+        }
+        catch (Exception e){
+            return "error";
+        }
+
+    }
+
+    public String obtenerFactura(String _service, String idVenta) {
+
+        String _res;
+
+        try{
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            String _url = _global + _service;
+
+            HttpClient httpClient = (HttpClient) new DefaultHttpClient();
+
+            HttpPost httppost = new HttpPost(_url);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("idVenta", idVenta));
+
+
+            httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+
+            HttpResponse resp = httpClient.execute(httppost);
+
+            HttpEntity ent = resp.getEntity();
+
+            _res = EntityUtils.toString(ent);
+
+            return _res;
+
+        }
+        catch (Exception e){
+            return "error";
+        }
+
+    }
+
 }

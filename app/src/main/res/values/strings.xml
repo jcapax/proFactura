@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">ProFactura</string>
+
+    <string-array name="producto">
+        <item>PRODUCTO</item>
+        <item>Botella Especial</item>
+        <item>Botella Sesquicentenario</item>
+        <item>Botella Stout</item>
+        <item>Botella Bicentenario</item>
+        <item>Lata Especial</item>
+        <item>Lata Sesquicentenario</item>
+        <item>Botellin Especial</item>
+        <item>Botellin Sesquicentenario</item>
+        <item>Botellin Stout</item>
+        <item>Botellin Bicentenario</item>
+        <item>Botellin 33</item>
+        <item>Chopp Especial</item>
+        <item>Chopp Sesquicentenario</item>
+        <item>Chopp Bicentenario</item>
+    </string-array>
 </resources>

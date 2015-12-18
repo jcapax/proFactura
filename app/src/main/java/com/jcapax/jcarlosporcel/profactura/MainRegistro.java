@@ -34,7 +34,7 @@ public class MainRegistro extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.editText);
         button   = (Button) findViewById(R.id.button);
-        bCerrar = (Button) findViewById(R.id.button2);
+        bCerrar = (Button) findViewById(R.id.bVentas);
         textView = (TextView) findViewById(R.id.textView);
 
         button.setOnClickListener(new View.OnClickListener() {
