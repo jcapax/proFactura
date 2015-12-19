@@ -176,7 +176,7 @@ public class Ventas extends AppCompatActivity {
 
 
                 HttpHandler httpHandler = new HttpHandler();
-                res = httpHandler.registarVenta("ventaTemp.php", _imei, jsonArray.toString());
+                res = httpHandler.registarVenta("registroVenta.php", _imei, jsonArray.toString());
 
                 String[] aux = null;
                 aux = res.split("-");
@@ -188,6 +188,7 @@ public class Ventas extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), Facturacion.class);
                 i.putExtra("idVenta",  idVenta.toString());
                 i.putExtra("importeVenta", importeVenta.toString());
+                i.putExtra("jsonArray", jsonArray.toString());
                 startActivity(i);
 
             }
