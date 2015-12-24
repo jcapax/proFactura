@@ -2,6 +2,7 @@ package com.jcapax.jcarlosporcel.profactura;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -109,7 +110,7 @@ public class Facturacion extends AppCompatActivity {
         importeVenta = extras.getString("importeVenta");
         String cadena = extras.getString("jsonArray");
 
-        Log.e(LOGTAG, cadena);
+        //Log.e(LOGTAG, cadena);
 
         try {
 
@@ -147,10 +148,6 @@ public class Facturacion extends AppCompatActivity {
         editTextNit = (EditText) findViewById(R.id.editTextNit);
         editTextRazonSocail = (EditText) findViewById(R.id.editTextRazonSocial);
 
-        dialog = new ProgressDialog(Facturacion.this);
-        dialog.setMessage("Cargando Visitas");
-        dialog.show();
-
 
         editTextIdVenta.setText(idVenta);
         textViewImporteVenta.setText(importeVenta);
@@ -161,6 +158,12 @@ public class Facturacion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HttpHandler httpHandler = new HttpHandler();
+
+                bFacturar.setVisibility(View.INVISIBLE);
+
+                ProgressDialog dialog = new ProgressDialog(Facturacion.this);
+                dialog.setMessage("Procesando Factura");
+                dialog.show();
 
                 String idVenta_;
                 String razonSocial;
@@ -182,6 +185,11 @@ public class Facturacion extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                Intent intent = new Intent(getApplicationContext(), Ventas.class);
+                startActivity(intent);
+                finish();
+
 
             }
         });
@@ -359,7 +367,7 @@ public class Facturacion extends AppCompatActivity {
         String cabecera =
                 "^XA" +
 
-                        "^POI^PW750^MNN^LL570^LH0,0" + "\r\n" +
+                        "^POI^PW750^MNN^LL720^LH0,0" + "\r\n" +
 
                         "^FO0,15" + "\r\n" + "^GB550,2,2,B,0^FS" + "\r\n" +
 
@@ -381,13 +389,17 @@ public class Facturacion extends AppCompatActivity {
 
                         "^FO280,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + fechaLimiteEmision + "^FS" + "\r\n" +
 
-                        "\"^FO170,210^BQN,2,5^FD " + codigoQR + " ^FS\r\n" +
+                        "\"^FO190,210^BQN,2,5^FD " + codigoQR + " ^FS\r\n" +
 
                         "^FO10,440" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAIS^FS" + "\r\n" +
                         "^FO80,470" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD EL USO ILICITO DE ESTA SERA SANCIONADO^FS" + "\r\n" +
                         "^FO180,500" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD DE ACUERDO A LEY^FS" + "\r\n" +
 
-                        "^FO0,530" + "\r\n" + "^GB550,2,2,B,0^FS" + "\r\n" + "^XZ";
+                        "^FO180,550" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD SEGUNDA LEYENDA^FS" + "\r\n" +
+                        "^FO180,590" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD SEGUNDA LEYENDA^FS" + "\r\n" +
+                        "^FO180,630" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD SEGUNDA LEYENDA^FS" + "\r\n" +
+
+                        "^FO0,650" + "\r\n" + "^GB550,2,2,B,0^FS" + "\r\n" + "^XZ";
 
         Log.e(LOGTAG, literal);
 
@@ -408,27 +420,29 @@ public class Facturacion extends AppCompatActivity {
 
                         "^FO20,50" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD SOCIEDAD INDUSTRIAL DEL SUR S.A.^FS" + "\r\n" +
 
-                        "^FO200,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD CASA MATRIZ 0 ^FS" + "\r\n" +
+                        "^FO200,90" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD CASA MATRIZ 0 ^FS" + "\r\n" +
 
-                        "^FO100,150" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD DIRECCION: CALLE MAURO NUNEZ N 16 ^FS" + "\r\n" +
+                        "^FO100,130" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD DIRECCION: CALLE MAURO NUNEZ N 16 ^FS" + "\r\n" +
 
-                        "^FO190,200" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD SUCRE - BOLIVIA ^FS" + "\r\n" +
+                        "^FO190,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD TELF. 64-41112^FS" + "\r\n" +
 
-                        "^FO0,250" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD NIT: ^FS" + "\r\n" +
+                        "^FO190,210" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD SUCRE - BOLIVIA ^FS" + "\r\n" +
 
-                        "^FO200,250" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD 1016207022 ^FS" + "\r\n" +
+                        "^FO0,270" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD NIT: ^FS" + "\r\n" +
 
-                        "^FO0,290" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NRO. FACTURA: ^FS" + "\r\n" +
+                        "^FO200,270" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD 1016207022 ^FS" + "\r\n" +
 
-                        "^FO200,290" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nroFactura + " ^FS" + "\r\n" +
+                        "^FO0,310" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NRO. FACTURA: ^FS" + "\r\n" +
 
-                        "^FO0,330" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NRO. AUTORIZ.: ^FS" + "\r\n" +
+                        "^FO200,310" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nroFactura + " ^FS" + "\r\n" +
 
-                        "^FO200,330" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nroAutorizacion + " ^FS" + "\r\n" +
+                        "^FO0,350" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NRO. AUTORIZ.: ^FS" + "\r\n" +
 
-                        "^FO0,370" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD ACT. ECONOMICA: ELAB. DE BEBIDAS DE MALTA ^FS" + "\r\n" +
+                        "^FO200,350" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nroAutorizacion + " ^FS" + "\r\n" +
 
-                        "^FO140,420" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD FACTURA ORIGINAL ^FS" + "\r\n" +
+                        "^FO0,390" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD ACT. ECONOMICA: ELAB. DE BEBIDAS DE MALTA ^FS" + "\r\n" +
+
+                        "^FO210,450" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD ORIGINAL ^FS" + "\r\n" +
 
                         "^FO0,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD FECHA EMISION: ^FS" + "\r\n" +
 
@@ -532,134 +546,6 @@ public class Facturacion extends AppCompatActivity {
     }
 
 
-    static class Tarea1 extends AsyncTask<ListView, Void, ArrayAdapter<DetalleProductos>> {
-        Context contexto;
-        ListView list;
-        InputStream is;
-        ArrayList<DetalleProductos> listaProductos = new ArrayList<DetalleProductos>();
-
-        String criterio;
-        private String detalle;
-
-        public void cargarContenido(Context contexto, String criterio) {
-            this.contexto = contexto;
-            this.criterio = criterio;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayAdapter<DetalleProductos> result) {
-            dialog.dismiss();
-            list.setAdapter(result);
-
-
-        }
-
-        ;
-
-        @Override
-        protected ArrayAdapter<DetalleProductos> doInBackground(ListView... params) {
-            // TODO Auto-generated method stub
-
-            HttpHandler httpHandler = new HttpHandler();
-
-            list = params[0];
-            String resultado = "fallo";
-            DetalleProductos dp;
-
-            String url = null;
-            url = httpHandler._global;
-
-            String param = "rest/jsonDetalleVenta.php?idVenta=" + criterio.trim();
-
-            //Log.e(LOGTAG, param);
-            //String param = "json_visita.php";
-
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet(url + param);
-
-            try {
-                HttpResponse response = httpClient.execute(httpGet);
-                HttpEntity contenido = response.getEntity();
-                is = contenido.getContent();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO: handle exception
-                e.printStackTrace();
-            }
-
-            BufferedReader buferLector = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-            String linea = null;
-            try {
-                while ((linea = buferLector.readLine()) != null) {
-                    sb.append(linea);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            resultado = sb.toString();
-
-
-//          CONSTRUIMOS LA IMPRESION DE LOS PRODUCTOS REGISTRADOS
-
-
-            detalle = "^XA" +
-
-                    "^POI^PW750^MNN^LL700^LH0,0" + "\r\n";
-
-
-            try {
-                JSONArray arrayJson = new JSONArray(resultado);
-                int posicion = 0;
-                String pos1, pos2;
-                for (int i = 0; i < arrayJson.length(); i++) {
-                    JSONObject objetoJson = arrayJson.getJSONObject(i);
-                    dp = new DetalleProductos(objetoJson.getString("nombreProducto"),
-                            objetoJson.getString("cantidad"),
-                            objetoJson.getString("costoUnitario"),
-                            objetoJson.getString("precioTotal"),
-                            objetoJson.getString("iceTotal"),
-                            objetoJson.getString("alicuota"));
-
-                    listaProductos.add(dp);
-
-                    pos1 = Integer.toString(posicion + 50);
-                    pos2 = Integer.toString(posicion + 100);
-
-                    detalle = detalle + "^FO0," + pos1 + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD" +
-                            objetoJson.getString("nombreProducto").toString() + "^FS" + "\r\n";
-
-                    detalle = detalle + "^FO50," + pos2 + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD" +
-                            objetoJson.getString("cantidad").toString() + "^FS" + "\r\n";
-
-                    posicion = posicion + 100;
-
-                    //Log.e(LOGTAG, objetoJson.getString("nombreProducto").toString() );
-                }
-
-                pos2 = Integer.toString(posicion);
-
-                detalle = detalle + "^FO0," + pos2 + "\r\n" + "^GB550,2,2,B,0^FS" + "\r\n" + "^XZ";
-
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            ArrayAdapter<DetalleProductos> adaptador = new ArrayAdapter<DetalleProductos>(contexto, android.R.layout.simple_list_item_1, listaProductos);
-
-            return adaptador;
-        }
-
-    }
 
 
 }
