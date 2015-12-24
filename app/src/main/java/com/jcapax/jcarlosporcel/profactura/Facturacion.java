@@ -150,7 +150,7 @@ public class Facturacion extends AppCompatActivity {
 
 
         editTextIdVenta.setText(idVenta);
-        textViewImporteVenta.setText(importeVenta);
+        textViewImporteVenta.setText("IMPORTE TOTAL VENTA: "+importeVenta+" Bs.");
 
         bFacturar = (Button) findViewById(R.id.bFacturar);
 

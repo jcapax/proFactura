@@ -9,108 +9,108 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jcapax.jcarlosporcel.profactura.Facturacion">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editTextIdVenta"
-        android:width="0dp"
-        android:visibility="invisible" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editTextNit"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/button2"
-        android:hint="Ci / Nit" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buscar"
-        android:id="@+id/button2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editTextRazonSocial"
-        android:layout_below="@+id/button2"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/button2"
-        android:layout_alignEnd="@+id/button2"
-        android:hint="RAZON SOCIAL" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancelar"
-        android:id="@+id/button3"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Facturar"
-        android:id="@+id/bFacturar"
-        android:layout_alignBottom="@+id/button3"
-        android:layout_alignRight="@+id/editTextRazonSocial"
-        android:layout_alignEnd="@+id/editTextRazonSocial" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/editTextRazonSocial"
-        android:layout_toStartOf="@+id/bFacturar"
-        android:layout_above="@+id/button3"
-        android:layout_alignRight="@+id/editTextRazonSocial"
-        android:layout_alignEnd="@+id/editTextRazonSocial"
-        android:weightSum="1">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="1">
+            android:id="@+id/linearLayout2">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:text="TOTAL VENTA"
-                android:id="@+id/textView3"
-                android:layout_weight="0.08"
-                android:textColor="#0040ff" />
-
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="importe venta"
-                android:id="@+id/textViewImporteVenta"
-                android:layout_weight="0.08"
-                android:textColor="#0059ff"
-                android:textStyle="bold"
-                android:textSize="18dp" />
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editTextIdVenta"
+                android:width="0dp"
+                android:visibility="invisible" />
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editTextNit"
+                android:layout_alignParentTop="true"
+                android:hint="Ci / Nit"
+                android:layout_alignParentLeft="true" />
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bBuscar"
+                android:src="@drawable/buscar"
+                android:scaleType="fitCenter"
+                android:layout_above="@+id/linearLayout"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/editTextRazonSocial"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:hint="RAZON SOCIAL" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="importe venta"
+                        android:id="@+id/textViewImporteVenta"
+                        android:layout_weight="0.08"
+                        android:textColor="#0059ff"
+                        android:textStyle="bold"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
         <ListView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/listViewProductos" />
+            android:layout_height="186dp"
+            android:id="@+id/listViewProductos"
+            android:layout_marginBottom="5dp" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Facturar"
+            android:id="@+id/bFacturar"
+            android:layout_gravity="right"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="69dp"
+            android:layout_marginStart="69dp" />
     </LinearLayout>
 
 </RelativeLayout>
