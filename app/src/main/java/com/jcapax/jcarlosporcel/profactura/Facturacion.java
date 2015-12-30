@@ -57,7 +57,7 @@ public class Facturacion extends AppCompatActivity {
     EditText editTextIdVenta;
     TextView textViewImporteVenta;
     EditText editTextNit;
-    EditText editTextRazonSocail;
+    static EditText editTextRazonSocail;
     ImageButton bFacturar;
     ImageButton bBuscar;
 
@@ -91,6 +91,9 @@ public class Facturacion extends AppCompatActivity {
     String detalleProductosRegistrados;
     String detalle;
 
+    static String razonSocialEncontrado;
+
+
 //******************************************
 //******************************************
 
@@ -116,7 +119,7 @@ public class Facturacion extends AppCompatActivity {
         importeVenta = extras.getString("importeVenta");
         String cadena = extras.getString("jsonArray");
 
-        final ProgressDialog dialog = new ProgressDialog(Facturacion.this);
+        //final ProgressDialog dialog = new ProgressDialog(Facturacion.this);
 
         //Log.e(LOGTAG, cadena);
 
@@ -162,6 +165,8 @@ public class Facturacion extends AppCompatActivity {
 
         bBuscar = (ImageButton) findViewById(R.id.bBuscar);
 
+        dialog = new ProgressDialog(Facturacion.this);
+
         bBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,6 +176,11 @@ public class Facturacion extends AppCompatActivity {
                 dialog.setTitle("Verificando");
                 dialog.setIndeterminate(true);
                 dialog.show();
+
+                Hilo1 hilo1 = new Hilo1();
+                hilo1.start();
+
+                /*
 
                 String razonSocial;
                 Editable _nit;
@@ -185,6 +195,7 @@ public class Facturacion extends AppCompatActivity {
 
                 dialog.dismiss();
 
+                */
 
             }
         });
@@ -235,7 +246,7 @@ public class Facturacion extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Intent intent = new Intent(getApplicationContext(), Ventas.class);
+                Intent intent = new Intent(getApplicationContext(), Autenticacion.class);
                 startActivity(intent);
                 finish();
 
@@ -324,7 +335,7 @@ public class Facturacion extends AppCompatActivity {
                 //  listaProductos.add(dp);
 
                 pos1 = Integer.toString(posicion);
-                pos2 = Integer.toString(posicion + 50);
+                pos2 = Integer.toString(posicion + 40);
 
                 detalle = detalle + "^FO15," + pos1 + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" +
                         objetoJson.getString("nombreProducto").toString() + "^FS" + "\r\n";
@@ -344,7 +355,7 @@ public class Facturacion extends AppCompatActivity {
                 detalle = detalle + "^FO540," + pos2 + "\r\n" + ",1^A0,N,25,25" + "\r\n" + "^FD" +
                         objetoJson.getString("precioTotal").toString() + "^FS" + "\r\n";
 
-                posicion = posicion + 100;
+                posicion = posicion + 80;
 
                 //Log.e(LOGTAG, objetoJson.getString("nombreProducto").toString() );
             }
@@ -412,7 +423,7 @@ public class Facturacion extends AppCompatActivity {
                 nit + '|' +
                 importeIce + '|' +
                 importeVentasTasaCero + '|' +
-                '0' + '|' +
+                "0.00" + '|' +
                 importeRebajas;
 
 
@@ -453,7 +464,7 @@ public class Facturacion extends AppCompatActivity {
 
                         "^FO0,650" + "\r\n" + "^GB550,2,2,B,0^FS" + "\r\n" + "^XZ";
 
-        Log.e(LOGTAG, literal);
+
 
         printerConnection.write(cabecera.getBytes());
     }
@@ -595,6 +606,33 @@ public class Facturacion extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    private class Hilo1 extends  Thread{
+        public void run(){
+            //String razonSocial;
+            Editable _nit;
+
+            _nit = editTextNit.getText();
+
+            HttpHandler httpHandler = new HttpHandler();
+
+            razonSocialEncontrado = httpHandler.respuestaRazonSocial("respuestaRazonSocial.php", _nit.toString());
+
+            //editTextRazonSocail.setText(razonSocial);
+
+            dialog.dismiss();
+
+            Facturacion.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    editTextRazonSocail.setText(razonSocialEncontrado);
+
+                }
+            });
+
+        }
     }
 
 }
