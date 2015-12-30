@@ -135,6 +135,42 @@ public class HttpHandler {
 
     }
 
+    public String respuestaRazonSocial(String _service, String nit) {
+
+        String _res;
+
+        try{
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            String _url = _global + _service;
+
+            HttpClient httpClient = (HttpClient) new DefaultHttpClient();
+
+            HttpPost httppost = new HttpPost(_url);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("nit", nit));
+
+            httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+
+            HttpResponse resp = httpClient.execute(httppost);
+
+            HttpEntity ent = resp.getEntity();
+
+            _res = EntityUtils.toString(ent);
+
+            return _res;
+
+        }
+        catch (Exception e){
+            return "error";
+        }
+
+    }
+
+
     public String obtenerFactura(String _service, String idVenta) {
 
         String _res;
@@ -153,6 +189,42 @@ public class HttpHandler {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("idVenta", idVenta));
 
+
+            httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+
+            HttpResponse resp = httpClient.execute(httppost);
+
+            HttpEntity ent = resp.getEntity();
+
+            _res = EntityUtils.toString(ent);
+
+            return _res;
+
+        }
+        catch (Exception e){
+            return "error";
+        }
+
+    }
+
+    public String autenticar(String _service, String patron, String imei) {
+
+        String _res;
+
+        try{
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            String _url = _global + _service;
+
+            HttpClient httpClient = (HttpClient) new DefaultHttpClient();
+
+            HttpPost httppost = new HttpPost(_url);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("imei", imei));
+            params.add(new BasicNameValuePair("patron", patron));
 
             httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 

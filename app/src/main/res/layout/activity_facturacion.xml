@@ -47,7 +47,9 @@
                 android:scaleType="fitCenter"
                 android:layout_above="@+id/linearLayout"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                android:clickable="true" />
 
         </LinearLayout>
 
@@ -100,17 +102,17 @@
             android:id="@+id/listViewProductos"
             android:layout_marginBottom="5dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Facturar"
+        <ImageButton
+            android:layout_width="230dp"
+            android:layout_height="45dp"
             android:id="@+id/bFacturar"
-            android:layout_gravity="right"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="69dp"
-            android:layout_marginStart="69dp" />
+            android:layout_gravity="center_horizontal|right"
+            android:src="@drawable/facturar"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            android:clickable="true" />
+
+
     </LinearLayout>
 
 </RelativeLayout>

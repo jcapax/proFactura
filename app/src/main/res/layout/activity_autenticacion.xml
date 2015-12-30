@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.jcapax.jcarlosporcel.profactura.Autenticacion">
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/editTextPatron"
+        android:layout_marginTop="91dp"
+        android:numeric="integer"
+        android:phoneNumber="true"
+        android:textSize="30dp"
+        android:maxLength="4"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bAutenticar"
+        android:layout_below="@+id/editTextPatron"
+        android:layout_alignLeft="@+id/editTextPatron"
+        android:layout_alignStart="@+id/editTextPatron"
+        android:src="@drawable/usuario"
+
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:layout_alignRight="@+id/editTextPatron"
+        android:layout_alignEnd="@+id/editTextPatron"
+        android:background="@android:color/transparent"
+        android:contextClickable="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Autenticar"
+        android:id="@+id/textView3"
+        android:layout_marginTop="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

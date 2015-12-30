@@ -1,19 +1,24 @@
 package com.jcapax.jcarlosporcel.profactura;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -53,7 +58,8 @@ public class Facturacion extends AppCompatActivity {
     TextView textViewImporteVenta;
     EditText editTextNit;
     EditText editTextRazonSocail;
-    Button bFacturar;
+    ImageButton bFacturar;
+    ImageButton bBuscar;
 
     ListView listViewProductos;
 
@@ -110,6 +116,8 @@ public class Facturacion extends AppCompatActivity {
         importeVenta = extras.getString("importeVenta");
         String cadena = extras.getString("jsonArray");
 
+        final ProgressDialog dialog = new ProgressDialog(Facturacion.this);
+
         //Log.e(LOGTAG, cadena);
 
         try {
@@ -152,17 +160,56 @@ public class Facturacion extends AppCompatActivity {
         editTextIdVenta.setText(idVenta);
         textViewImporteVenta.setText("IMPORTE TOTAL VENTA: "+importeVenta+" Bs.");
 
-        bFacturar = (Button) findViewById(R.id.bFacturar);
+        bBuscar = (ImageButton) findViewById(R.id.bBuscar);
+
+        bBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.setMessage("Favor Esperar");
+                dialog.setTitle("Verificando");
+                dialog.setIndeterminate(true);
+                dialog.show();
+
+                String razonSocial;
+                Editable _nit;
+
+                _nit = editTextNit.getText();
+
+                HttpHandler httpHandler = new HttpHandler();
+
+                razonSocial = httpHandler.respuestaRazonSocial("respuestaRazonSocial.php", _nit.toString());
+
+                editTextRazonSocail.setText(razonSocial);
+
+                dialog.dismiss();
+
+
+            }
+        });
+
+
+        bFacturar = (ImageButton) findViewById(R.id.bFacturar);
 
         bFacturar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HttpHandler httpHandler = new HttpHandler();
+
+
+                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(Facturacion.this);
+                dialogo1.setTitle("Atención");
+                dialogo1.setMessage("¿Los datos registrados serán procesados, desea continuar?");
+                dialogo1.setIcon(R.drawable.alerta);
+                dialogo1.setCancelable(false);
+                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
 
                 bFacturar.setVisibility(View.INVISIBLE);
 
-                ProgressDialog dialog = new ProgressDialog(Facturacion.this);
-                dialog.setMessage("Procesando Factura");
+                dialog.setMessage("Favor Esperar");
+                dialog.setTitle("Verificando");
+                dialog.setIndeterminate(true);
                 dialog.show();
 
                 String idVenta_;
@@ -172,6 +219,8 @@ public class Facturacion extends AppCompatActivity {
                 idVenta_ = editTextIdVenta.getText().toString();
                 razonSocial = editTextRazonSocail.getText().toString();
                 nit = editTextNit.getText().toString();
+
+                HttpHandler httpHandler = new HttpHandler();
 
                 httpHandler.registarFactura("registroFactura.php",
                         idVenta_,
@@ -190,18 +239,21 @@ public class Facturacion extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
-
+                    }
+                });
+                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        Toast t = Toast.makeText(getApplicationContext(), "Facturación Suspendida", Toast.LENGTH_SHORT);
+                        t.show();
+                    }
+                });
+                dialogo1.show();
             }
         });
-/*
-        Tarea1 tarea1 = new Tarea1();
-        tarea1.cargarContenido(getApplicationContext(), idVenta);
-        tarea1.execute(listViewProductos);
-*/
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
+
 
 
     private void prepararCuerpo() {
@@ -544,8 +596,5 @@ public class Facturacion extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
-
-
-
 
 }

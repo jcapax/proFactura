@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -186,11 +186,18 @@ public class Ventas extends AppCompatActivity {
                 dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
 
+                DialogoEnProgreso dialogoEnProgreso = new DialogoEnProgreso();
+                        dialogoEnProgreso.execute();
+
+/*
+                        boolean aux1 = true;
+
                         dialog = new ProgressDialog(Ventas.this);
                         dialog.setMessage("Favor Esperar");
                         dialog.setTitle("Registrando Venta");
+                        dialog.setIndeterminate(aux1);
                         dialog.show();
-
+*/
                         JSONArray jsonArray = new JSONArray();
 
                         JSONObject jsonMain = new JSONObject();
@@ -246,7 +253,7 @@ public class Ventas extends AppCompatActivity {
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
-                        Toast  t = Toast.makeText(getApplicationContext(), "Venta Suspendia", Toast.LENGTH_SHORT);
+                        Toast  t = Toast.makeText(getApplicationContext(), "Venta Suspendida", Toast.LENGTH_SHORT);
                         t.show();
                     }
                 });
@@ -298,7 +305,40 @@ public class Ventas extends AppCompatActivity {
 
 
 
+
     }
+
+    class DialogoEnProgreso extends AsyncTask<String, Void, Void>{
+
+        ProgressDialog dialog = new ProgressDialog(Ventas.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            boolean aux1 = true;
+
+
+            dialog.setMessage("Favor Esperar");
+            dialog.setTitle("Registrando Venta");
+            dialog.setIndeterminate(aux1);
+            dialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            //dialog.dismiss();
+        }
+    }
+
 }
 
 
