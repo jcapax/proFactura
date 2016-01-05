@@ -210,16 +210,16 @@ public class Facturacion extends AppCompatActivity {
 
                 AlertDialog.Builder dialogo1 = new AlertDialog.Builder(Facturacion.this);
                 dialogo1.setTitle("Atención");
-                dialogo1.setMessage("¿Los datos registrados serán procesados, desea continuar?");
+                dialogo1.setMessage("¿Desea generar la factura con los datos registrados?");
                 dialogo1.setIcon(R.drawable.alerta);
                 dialogo1.setCancelable(false);
                 dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
 
-                bFacturar.setVisibility(View.INVISIBLE);
+
 
                 dialog.setMessage("Favor Esperar");
-                dialog.setTitle("Verificando");
+                dialog.setTitle("Generando Factura");
                 dialog.setIndeterminate(true);
                 dialog.show();
 
@@ -493,7 +493,7 @@ public class Facturacion extends AppCompatActivity {
 
                         "^FO0,270" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD NIT: ^FS" + "\r\n" +
 
-                        "^FO200,270" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD 1016207022 ^FS" + "\r\n" +
+                        "^FO200,270" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD 1016257022 ^FS" + "\r\n" +
 
                         "^FO0,310" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NRO. FACTURA: ^FS" + "\r\n" +
 
@@ -634,5 +634,22 @@ public class Facturacion extends AppCompatActivity {
 
         }
     }
+
+    private class Hilo2 extends  Thread{
+        public void run(){
+
+            dialog.dismiss();
+
+            Facturacion.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+
+                }
+            });
+
+        }
+    }
+
 
 }

@@ -38,7 +38,7 @@ public class Ventas extends AppCompatActivity {
     ListView listViewProductos;
     EditText editTextCantidad;
 
-    String _imei;
+    static String _imei;
 
     String _compa = null;
 
@@ -50,12 +50,21 @@ public class Ventas extends AppCompatActivity {
 
     String importeVenta;
 
+    static ArrayList<String> arrayList = new ArrayList<String>();
+    static ArrayAdapter<String> arrayAdpater;
+
     private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ventas);
+/*
+        Bundle extras = getIntent().getExtras();
+
+        _imei = extras.getString("imei");
+
+*/
 
         spinnerProducto   = (Spinner) findViewById(R.id.spinnerProducto);
         bAdicionar        = (ImageButton) findViewById(R.id.bAdicionar);
@@ -67,9 +76,9 @@ public class Ventas extends AppCompatActivity {
 
         _imei = telephonyManager.getDeviceId();
 
-
         final ArrayAdapter<?> adapter =
                 ArrayAdapter.createFromResource(this, R.array.producto, android.R.layout.simple_spinner_dropdown_item);
+
 
         spinnerProducto.setAdapter(adapter);
 
@@ -89,8 +98,9 @@ public class Ventas extends AppCompatActivity {
 
 
 
-        final ArrayList<String> arrayList = new ArrayList<String>();
-        final ArrayAdapter<String> arrayAdpater = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
+//        final ArrayList<String> arrayList = new ArrayList<String>();
+        arrayAdpater = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
+
 
         listViewProductos.setAdapter(arrayAdpater);
 
@@ -118,16 +128,18 @@ public class Ventas extends AppCompatActivity {
                         if (_prod.equals(_compa)) {
                             aux = true;
                         }
+                    }
 
 
+                    if(editTextCantidad.getText().toString().length() == 0){
+                        aux = true;
                     }
 //****************************************************************
 
                     if (!aux) {
                         arrayList.add(_productoSeleccionado + " - " + editTextCantidad.getText().toString());
-
                     } else {
-                        Toast.makeText(getApplicationContext(), "El producto ya ha sido seleccionado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "El Producto ya ha sido seleccionado o la Cantidad no es la Correcta", Toast.LENGTH_SHORT).show();
                     }
 
                     editTextCantidad.setText("");
@@ -155,16 +167,6 @@ public class Ventas extends AppCompatActivity {
                                            int posicion, long arg3) {
                 // TODO Auto-generated method stub
 
-               /*
-                contadorProductos = contadorProductos - 1;
-
-
-                if (contadorProductos == 0) {
-                    btnGetProducts.setVisibility(View.INVISIBLE);
-                }
-
-                */
-
                 arrayList.remove(posicion);
                 arrayAdpater.notifyDataSetChanged();
                 return false;
@@ -186,18 +188,24 @@ public class Ventas extends AppCompatActivity {
                 dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
 
-                DialogoEnProgreso dialogoEnProgreso = new DialogoEnProgreso();
-                        dialogoEnProgreso.execute();
-
-/*
-                        boolean aux1 = true;
-
                         dialog = new ProgressDialog(Ventas.this);
                         dialog.setMessage("Favor Esperar");
                         dialog.setTitle("Registrando Venta");
-                        dialog.setIndeterminate(aux1);
+                        dialog.setIndeterminate(true);
                         dialog.show();
+//***************
+/*
+                        arrayAdpater.clear();
+                        arrayAdpater.notifyDataSetChanged();
 */
+//***************
+                        Hilo1 hilo1 = new Hilo1();
+                        hilo1.start();
+
+                        //**********************************************************************************************************
+                        //**********************************************************************************************************
+                        //**********************************************************************************************************
+/*
                         JSONArray jsonArray = new JSONArray();
 
                         JSONObject jsonMain = new JSONObject();
@@ -249,6 +257,12 @@ public class Ventas extends AppCompatActivity {
                         arrayAdpater.notifyDataSetChanged();
 
                         finish();
+*/
+
+                        //**********************************************************************************************************
+                        //**********************************************************************************************************
+                        //**********************************************************************************************************
+
                     }
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -259,46 +273,6 @@ public class Ventas extends AppCompatActivity {
                 });
                 dialogo1.show();
 
-                /*
-                new AlertDialog.Builder(getApplicationContext())
-                        .setTitle("Confirmar")
-                        .setMessage("Esta seguro de enviar los datos para la venta??")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                Toast.makeText(getApplicationContext(), "posi",Toast.LENGTH_LONG).show();
-
-                            }
-
-                        }
-                        )
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                        Toast.makeText(getApplicationContext(), "nega",Toast.LENGTH_LONG).show();
-
-                                    }
-
-                                }
-                        )
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-*/
-
-
-//****************************************************************************************
-                //****************************************************************************************
-                // ****************************************************************************************
-
-
-
-
-
-
-
-
             }
         });
 
@@ -308,36 +282,79 @@ public class Ventas extends AppCompatActivity {
 
     }
 
-    class DialogoEnProgreso extends AsyncTask<String, Void, Void>{
-
-        ProgressDialog dialog = new ProgressDialog(Ventas.this);
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            boolean aux1 = true;
+    private class Hilo1 extends  Thread{
+        public void run(){
 
 
-            dialog.setMessage("Favor Esperar");
-            dialog.setTitle("Registrando Venta");
-            dialog.setIndeterminate(aux1);
-            dialog.show();
-        }
+            JSONArray jsonArray = new JSONArray();
 
-        @Override
-        protected Void doInBackground(String... params) {
-            return null;
+            //JSONObject jsonMain = new JSONObject();
 
-        }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+            String[] detalle;
 
-            //dialog.dismiss();
+            for(int i=0;i<arrayList.size();i++){
+                try {
+                    JSONObject obj = new JSONObject();
+
+                    detalle = arrayList.get(i).toString().split("-");
+
+                    obj.put("nombreProducto", detalle[0].trim());
+                    obj.put("cantidad",detalle[1].trim());
+
+
+                    jsonArray.put(obj);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+
+            /*
+            try {
+                jsonMain.put("productos",jsonArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            */
+
+            HttpHandler httpHandler = new HttpHandler();
+            res = httpHandler.registarVenta("registroVenta.php", _imei, jsonArray.toString());
+
+            String[] aux = null;
+            aux = res.split("-");
+            idVenta      = aux[0];
+            importeVenta = aux[1];
+
+            Intent i = new Intent(getApplicationContext(), Facturacion.class);
+            i.putExtra("idVenta",  idVenta.toString());
+            i.putExtra("importeVenta", importeVenta.toString());
+            i.putExtra("jsonArray", jsonArray.toString());
+            startActivity(i);
+
+            //arrayAdpater.clear();
+            //arrayAdpater.notifyDataSetChanged();
+
+            finish();
+
+            Ventas.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    arrayAdpater.clear();
+                    arrayAdpater.notifyDataSetChanged();
+
+                }
+            });
+
         }
     }
+
+
+
+
 
 }
 

@@ -39,11 +39,11 @@
             <EditText
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:ems="10"
                 android:id="@+id/editTextCantidad"
                 android:layout_marginTop="0dp"
-                android:hint="CANT." />
+                android:hint="CANT."
+                android:inputType="number" />
 
         </LinearLayout>
 
