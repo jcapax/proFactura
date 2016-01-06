@@ -217,19 +217,28 @@ public class Facturacion extends AppCompatActivity {
                     public void onClick(DialogInterface dialogo1, int id) {
 
 
+                        dialog.setMessage("Favor Esperar");
+                        dialog.setTitle("Generando Factura");
+                        dialog.setIndeterminate(true);
+                        dialog.show();
 
-                dialog.setMessage("Favor Esperar");
-                dialog.setTitle("Generando Factura");
-                dialog.setIndeterminate(true);
-                dialog.show();
 
-                String idVenta_;
-                String razonSocial;
-                String nit;
+                        String idVenta_;
+                        String razonSocial;
+                        String nit;
 
-                idVenta_ = editTextIdVenta.getText().toString();
-                razonSocial = editTextRazonSocail.getText().toString();
-                nit = editTextNit.getText().toString();
+                        idVenta_ = editTextIdVenta.getText().toString();
+                        razonSocial = editTextRazonSocail.getText().toString();
+                        nit = editTextNit.getText().toString();
+
+                        Hilo2 hilo2 = new Hilo2(idVenta_, razonSocial, nit);
+                        hilo2.start();
+
+//********************************************************************************************
+//********************************************************************************************
+//********************************************************************************************
+/*
+
 
                 HttpHandler httpHandler = new HttpHandler();
 
@@ -250,6 +259,11 @@ public class Facturacion extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
+
+*/
+//********************************************************************************************
+//********************************************************************************************
+//********************************************************************************************
                     }
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -636,18 +650,41 @@ public class Facturacion extends AppCompatActivity {
     }
 
     private class Hilo2 extends  Thread{
+
+        private String idVenta_;
+        private String razonSocial;
+        private String nit;
+
+
+        public Hilo2(String _idVenta, String _razonSocial, String _nit){
+            idVenta_    = _idVenta;
+            razonSocial = _razonSocial;
+            nit         =  _nit;
+        }
+
+
         public void run(){
 
+            HttpHandler httpHandler = new HttpHandler();
+
+            httpHandler.registarFactura("registroFactura.php",
+                    idVenta_,
+                    nit,
+                    razonSocial);
+
+            try {
+                leerFactura(idVenta_);
+
+                imprimir();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Intent intent = new Intent(getApplicationContext(), Autenticacion.class);
+            startActivity(intent);
+            finish();
+
             dialog.dismiss();
-
-            Facturacion.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-
-                }
-            });
-
         }
     }
 
