@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
@@ -392,8 +393,19 @@ public class Facturacion extends AppCompatActivity {
 
 
     private void imprimir() {
-        String macAddress = "AC:3F:A4:53:CB:99";
 
+        HttpHandler httpHandler = new HttpHandler();
+
+
+        String macAddress = "AC:3F:A4:55:2D:54";
+/*        String macAddress;
+
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+
+        String imei = telephonyManager.getDeviceId();
+
+        macAddress = httpHandler.obtenerDireccionMac("obtenerDireccionMac.php", imei);
+*/
         printerConnection = new BluetoothConnection(macAddress);
 
         try {
@@ -443,6 +455,7 @@ public class Facturacion extends AppCompatActivity {
 
         String cabecera =
                 "^XA" +
+                        "! U1 setvar \"device.languages\" \"zpl\""+
 
                         "^POI^PW750^MNN^LL720^LH0,0" + "\r\n" +
 
@@ -468,8 +481,8 @@ public class Facturacion extends AppCompatActivity {
 
                         "\"^FO190,210^BQN,2,5^FD " + codigoQR + " ^FS\r\n" +
 
-                        "^FO10,440" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAIS^FS" + "\r\n" +
-                        "^FO80,470" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD EL USO ILICITO DE ESTA SERA SANCIONADO^FS" + "\r\n" +
+                        "^FO10,440" + "\r\n"  + "^A0,N,23,23" + "\r\n" + "^FD ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAIS^FS" + "\r\n" +
+                        "^FO80,470" + "\r\n"  + "^A0,N,23,23" + "\r\n" + "^FD EL USO ILICITO DE ESTA SERA SANCIONADO^FS" + "\r\n" +
                         "^FO180,500" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD DE ACUERDO A LEY^FS" + "\r\n" +
 
                         "^FO180,550" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD SEGUNDA LEYENDA^FS" + "\r\n" +
@@ -529,7 +542,7 @@ public class Facturacion extends AppCompatActivity {
 
                         "^FO180,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nit + "^FS" + "\r\n" +
 
-                        "^FO0,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD RAZON SOCIAL^FS" + "\r\n" +
+                        "^FO0,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD RAZON SOCIAL:^FS" + "\r\n" +
 
                         "^FO180,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + razonSocial + "^FS" + "\r\n" +
 

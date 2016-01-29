@@ -1,6 +1,7 @@
 package com.jcapax.jcarlosporcel.profactura;
 
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,8 @@ public class Autenticacion extends AppCompatActivity {
     ImageButton bAutenticar;
     static String imei;
 
+    private BluetoothAdapter bluetoothAdapter;
+
     private static final String LOGTAG = "LogsAndroid";
 
 
@@ -26,6 +29,14 @@ public class Autenticacion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autenticacion);
+
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if ( !bluetoothAdapter.isEnabled() ) {
+            Intent turnOnIntent = new Intent( BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult( turnOnIntent, 1 );
+        }
+
+
 
         editTextPatron = (EditText) findViewById(R.id.editTextPatron);
         bAutenticar = (ImageButton) findViewById(R.id.bAutenticar);

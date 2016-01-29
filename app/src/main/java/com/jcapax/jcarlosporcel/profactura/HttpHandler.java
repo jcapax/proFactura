@@ -207,6 +207,42 @@ public class HttpHandler {
 
     }
 
+    public String obtenerDireccionMac(String _service, String imei) {
+
+        String _res;
+
+        try{
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            String _url = _global + _service;
+
+            HttpClient httpClient = (HttpClient) new DefaultHttpClient();
+
+            HttpPost httppost = new HttpPost(_url);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("idVenta", imei));
+
+
+            httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+
+            HttpResponse resp = httpClient.execute(httppost);
+
+            HttpEntity ent = resp.getEntity();
+
+            _res = EntityUtils.toString(ent);
+
+            return _res;
+
+        }
+        catch (Exception e){
+            return "error";
+        }
+
+    }
+
     public String autenticar(String _service, String patron, String imei) {
 
         String _res;
