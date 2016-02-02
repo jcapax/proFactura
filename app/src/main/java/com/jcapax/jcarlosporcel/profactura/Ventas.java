@@ -192,6 +192,7 @@ public class Ventas extends AppCompatActivity {
                         dialog.setMessage("Favor Esperar");
                         dialog.setTitle("Registrando Venta");
                         dialog.setIndeterminate(true);
+                        dialog.setCancelable(false);
                         dialog.show();
 //***************
 /*

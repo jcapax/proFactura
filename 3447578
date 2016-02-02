@@ -1,0 +1,59 @@
+[33mcommit 368c2c0598ddcce8c1b50f5a6898b831a0eb4303[m
+Author: juan carlos porcel <jcapax@gmail.com>
+Date:   Fri Jan 29 10:43:11 2016 -0400
+
+    funcionando todos los modulos
+
+[33mcommit 51fc25e90e85cc455b59d0b9290b5487d5efa8d3[m
+Author: juan carlos porcel <jcapax@gmail.com>
+Date:   Wed Jan 6 10:07:08 2016 -0400
+
+    todos los cuadros de procesos funcionando, se agrego el dialogo a la factura
+
+[33mcommit 23358265ea24a0820d9e97e789f0a5908e3d15ee[m
+Author: juan carlos porcel aramayo <jcarlos.porcel@sids>
+Date:   Tue Jan 5 18:05:00 2016 -0400
+
+    adicion de cuadros de progreso en autenticacion, nit y venta
+
+[33mcommit 2d53c5b33d7986ddf1ccb36981024afe19b0acbe[m
+Author: juan carlos porcel aramayo <jcarlos.porcel@sids>
+Date:   Wed Dec 30 17:59:01 2015 -0400
+
+    progress en nit, mejoras en reporte
+
+[33mcommit c72682b449028f66767d81feb453d4247bfd84ce[m
+Author: juan carlos porcel aramayo <jcarlos.porcel@sids>
+Date:   Wed Dec 30 17:13:48 2015 -0400
+
+    inclusion de imagenes y autenticacion
+
+[33mcommit bb9c133e04dee5a1031cb61f466fb2fee53c6ac9[m
+Author: juan carlos porcel aramayo <jcarlos.porcel@sids>
+Date:   Thu Dec 24 15:21:52 2015 -0400
+
+    modificacion solo de interfaces
+
+[33mcommit 59b8bd2c912034c0740e96c2b0ae40f50ecbe345[m
+Author: juan carlos porcel aramayo <jcarlos.porcel@sids>
+Date:   Thu Dec 24 12:14:52 2015 -0400
+
+    funcional, con imagenes en ventas
+
+[33mcommit ff2432d420d963121ed790f9475a3a55c71b52eb[m
+Author: juan carlos porcel aramayo <jcarlos.porcel@sids>
+Date:   Sat Dec 19 11:32:23 2015 -0400
+
+    incluye lista de productos
+
+[33mcommit a8b3b466496d81588121711c85e553369016a552[m
+Author: juan carlos porcel aramayo <jcarlos.porcel@sids>
+Date:   Fri Dec 18 11:26:08 2015 -0400
+
+    version estable
+
+[33mcommit cd2ab81bf3cf0058299f46fb2a91d6b1dfa6cbeb[m
+Author: juan carlos porcel aramayo <jcarlos.porcel@sids>
+Date:   Fri Dec 4 14:53:05 2015 -0400
+
+    archivos base funcionando

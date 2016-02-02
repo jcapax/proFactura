@@ -173,6 +173,7 @@ public class Facturacion extends AppCompatActivity {
             public void onClick(View v) {
 
 
+                dialog.setCancelable(false);
                 dialog.setMessage("Favor Esperar");
                 dialog.setTitle("Verificando");
                 dialog.setIndeterminate(true);
@@ -181,22 +182,6 @@ public class Facturacion extends AppCompatActivity {
                 Hilo1 hilo1 = new Hilo1();
                 hilo1.start();
 
-                /*
-
-                String razonSocial;
-                Editable _nit;
-
-                _nit = editTextNit.getText();
-
-                HttpHandler httpHandler = new HttpHandler();
-
-                razonSocial = httpHandler.respuestaRazonSocial("respuestaRazonSocial.php", _nit.toString());
-
-                editTextRazonSocail.setText(razonSocial);
-
-                dialog.dismiss();
-
-                */
 
             }
         });
@@ -218,6 +203,7 @@ public class Facturacion extends AppCompatActivity {
                     public void onClick(DialogInterface dialogo1, int id) {
 
 
+                        dialog.setCancelable(false);
                         dialog.setMessage("Favor Esperar");
                         dialog.setTitle("Generando Factura");
                         dialog.setIndeterminate(true);
@@ -235,36 +221,7 @@ public class Facturacion extends AppCompatActivity {
                         Hilo2 hilo2 = new Hilo2(idVenta_, razonSocial, nit);
                         hilo2.start();
 
-//********************************************************************************************
-//********************************************************************************************
-//********************************************************************************************
-/*
 
-
-                HttpHandler httpHandler = new HttpHandler();
-
-                httpHandler.registarFactura("registroFactura.php",
-                        idVenta_,
-                        nit,
-                        razonSocial);
-
-                try {
-                    leerFactura(idVenta_);
-
-                    imprimir();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                Intent intent = new Intent(getApplicationContext(), Autenticacion.class);
-                startActivity(intent);
-                finish();
-
-
-*/
-//********************************************************************************************
-//********************************************************************************************
-//********************************************************************************************
                     }
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -397,7 +354,6 @@ public class Facturacion extends AppCompatActivity {
         HttpHandler httpHandler = new HttpHandler();
 
 
-        String macAddress = "AC:3F:A4:55:2D:54";
 /*        String macAddress;
 
         TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
@@ -406,6 +362,7 @@ public class Facturacion extends AppCompatActivity {
 
         macAddress = httpHandler.obtenerDireccionMac("obtenerDireccionMac.php", imei);
 */
+        String macAddress = "AC:3F:A4:55:9A:97";
         printerConnection = new BluetoothConnection(macAddress);
 
         try {
@@ -485,9 +442,9 @@ public class Facturacion extends AppCompatActivity {
                         "^FO80,470" + "\r\n"  + "^A0,N,23,23" + "\r\n" + "^FD EL USO ILICITO DE ESTA SERA SANCIONADO^FS" + "\r\n" +
                         "^FO180,500" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD DE ACUERDO A LEY^FS" + "\r\n" +
 
-                        "^FO180,550" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD SEGUNDA LEYENDA^FS" + "\r\n" +
-                        "^FO180,590" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD SEGUNDA LEYENDA^FS" + "\r\n" +
-                        "^FO180,630" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD SEGUNDA LEYENDA^FS" + "\r\n" +
+                        "^FO60,550" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FDLey N. 453: Si se te ha vulnerado algun derecho^FS" + "\r\n" +
+                        "^FO85,580" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FDpuedes exigir la reposicion o restauracion.^FS" + "\r\n" +
+                        //"^FO180,630" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD SEGUNDA LEYENDA^FS" + "\r\n" +
 
                         "^FO0,650" + "\r\n" + "^GB550,2,2,B,0^FS" + "\r\n" + "^XZ";
 
@@ -510,41 +467,44 @@ public class Facturacion extends AppCompatActivity {
 
                         "^FO20,50" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD SOCIEDAD INDUSTRIAL DEL SUR S.A.^FS" + "\r\n" +
 
-                        "^FO200,90" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD CASA MATRIZ 0 ^FS" + "\r\n" +
+                        "^FO200,90" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD CASA MATRIZ ^FS" + "\r\n" +
 
-                        "^FO100,130" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD DIRECCION: CALLE MAURO NUNEZ N 16 ^FS" + "\r\n" +
+                        "^FO100,125" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD DIRECCION: CALLE MAURO NUNEZ N 16 ^FS" + "\r\n" +
 
-                        "^FO190,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD TELF. 64-41112^FS" + "\r\n" +
+                        "^FO190,160" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD TELF. 64-41112^FS" + "\r\n" +
 
-                        "^FO190,210" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD SUCRE - BOLIVIA ^FS" + "\r\n" +
+                        "^FO190,195" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD SUCRE - BOLIVIA ^FS" + "\r\n" +
 
-                        "^FO0,270" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD NIT: ^FS" + "\r\n" +
+                        "^FO210,235" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD FACTURA ^FS" + "\r\n" +
 
-                        "^FO200,270" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD 1016257022 ^FS" + "\r\n" +
+                        "^FO0,285" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD NIT: ^FS" + "\r\n" +
 
-                        "^FO0,310" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NRO. FACTURA: ^FS" + "\r\n" +
+                        "^FO200,285" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD1016257022 ^FS" + "\r\n" +
 
-                        "^FO200,310" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nroFactura + " ^FS" + "\r\n" +
+                        "^FO0,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NRO. FACTURA: ^FS" + "\r\n" +
+
+                        "^FO200,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nroFactura + " ^FS" + "\r\n" +
 
                         "^FO0,350" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NRO. AUTORIZ.: ^FS" + "\r\n" +
 
                         "^FO200,350" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nroAutorizacion + " ^FS" + "\r\n" +
 
-                        "^FO0,390" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD ACT. ECONOMICA: ELAB. DE BEBIDAS DE MALTA ^FS" + "\r\n" +
+                        "^FO0,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD ACT. ECONOMICA:   ELABORACION DE BEBIDAS ^FS" + "\r\n" +
+                        "^FO220,415" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD DE MALTA (CERVEZA)^FS" + "\r\n" +
 
-                        "^FO210,450" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD ORIGINAL ^FS" + "\r\n" +
+                        "^FO210,460" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD ORIGINAL ^FS" + "\r\n" +
 
-                        "^FO0,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD FECHA EMISION: ^FS" + "\r\n" +
+                        "^FO0,510" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD FECHA EMISION: ^FS" + "\r\n" +
 
-                        "^FO180,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + fechaFactura + "^FS" + "\r\n" +
+                        "^FO180,510" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + fechaFactura + "^FS" + "\r\n" +
 
-                        "^FO0,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NIT / CI: ^FS" + "\r\n" +
+                        "^FO0,550" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD NIT / CI: ^FS" + "\r\n" +
 
-                        "^FO180,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nit + "^FS" + "\r\n" +
+                        "^FO180,550" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + nit + "^FS" + "\r\n" +
 
-                        "^FO0,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD RAZON SOCIAL:^FS" + "\r\n" +
+                        "^FO0,590" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD RAZON SOCIAL:^FS" + "\r\n" +
 
-                        "^FO180,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + razonSocial + "^FS" + "\r\n" +
+                        "^FO180,590" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD " + razonSocial + "^FS" + "\r\n" +
 
                         "^FO0,625" + "\r\n" + "^GB550,2,2,B,0^FS" + "\r\n" +
 
@@ -677,6 +637,7 @@ public class Facturacion extends AppCompatActivity {
 
 
         public void run(){
+
 
             HttpHandler httpHandler = new HttpHandler();
 
