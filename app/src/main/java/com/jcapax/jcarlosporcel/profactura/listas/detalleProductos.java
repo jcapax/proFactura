@@ -3,7 +3,7 @@ package com.jcapax.jcarlosporcel.profactura.listas;
 /**
  * Created by jcarlos.porcel on 17/12/2015.
  */
-public class DetalleProductos {
+public class detalleProductos {
 
     String nombreProducto;
     String cantidad;
@@ -12,13 +12,13 @@ public class DetalleProductos {
     String iceTotal;
     String alicuota;
 
-    public DetalleProductos(String nombreProducto, String cantidad, String costoUnitario, String precioTotal, String iceTotal, String alicuota) {
+    public detalleProductos(String nombreProducto, String cantidad, String costoUnitario, String precioTotal, String iceTotal, String alicuota) {
         this.nombreProducto = nombreProducto;
-        this.cantidad = cantidad;
-        this.costoUnitario = costoUnitario;
-        this.precioTotal = precioTotal;
-        this.iceTotal = iceTotal;
-        this.alicuota = alicuota;
+        this.cantidad       = cantidad;
+        this.costoUnitario  = costoUnitario;
+        this.precioTotal    = precioTotal;
+        this.iceTotal       = iceTotal;
+        this.alicuota       = alicuota;
     }
 
     public String getNombreProducto() {

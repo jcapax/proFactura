@@ -2,19 +2,14 @@ package com.jcapax.jcarlosporcel.profactura;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -24,8 +19,7 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.jcapax.jcarlosporcel.profactura.listas.DetalleProductos;
-import com.jcapax.jcarlosporcel.profactura.listas.Factura;
+import com.jcapax.jcarlosporcel.profactura.listas.detalleProductos;
 import com.zebra.sdk.comm.BluetoothConnection;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
@@ -246,7 +240,7 @@ public class Facturacion extends AppCompatActivity {
         InputStream is = null;
 
         String resultado = "fallo";
-        DetalleProductos dp;
+        detalleProductos dp;
 
         String detalleCabe;
 
@@ -297,7 +291,7 @@ public class Facturacion extends AppCompatActivity {
             String pos1, pos2;
             for (int i = 0; i < arrayJson.length(); i++) {
                 JSONObject objetoJson = arrayJson.getJSONObject(i);
-                dp = new DetalleProductos(objetoJson.getString("nombreProducto"),
+                dp = new detalleProductos(objetoJson.getString("nombreProducto"),
                         objetoJson.getString("cantidad"),
                         objetoJson.getString("costoUnitario"),
                         objetoJson.getString("precioTotal"),
@@ -362,7 +356,7 @@ public class Facturacion extends AppCompatActivity {
 
         macAddress = httpHandler.obtenerDireccionMac("obtenerDireccionMac.php", imei);
 */
-        String macAddress = "AC:3F:A4:55:9A:97";
+        String macAddress = "AC:3F:A4:55:96:F4";
         printerConnection = new BluetoothConnection(macAddress);
 
         try {
@@ -442,8 +436,8 @@ public class Facturacion extends AppCompatActivity {
                         "^FO80,470" + "\r\n"  + "^A0,N,23,23" + "\r\n" + "^FD EL USO ILICITO DE ESTA SERA SANCIONADO^FS" + "\r\n" +
                         "^FO180,500" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD DE ACUERDO A LEY^FS" + "\r\n" +
 
-                        "^FO60,550" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FDLey N. 453: Si se te ha vulnerado algun derecho^FS" + "\r\n" +
-                        "^FO85,580" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FDpuedes exigir la reposicion o restauracion.^FS" + "\r\n" +
+                        "^FO60,550" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FDLey N. 453: El proveedor debera dar cumplimiento^FS" + "\r\n" +
+                        "^FO85,580" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD           a las condiciones ofertadas.^FS" + "\r\n" +
                         //"^FO180,630" + "\r\n" + "^A0,N,23,23" + "\r\n" + "^FD SEGUNDA LEYENDA^FS" + "\r\n" +
 
                         "^FO0,650" + "\r\n" + "^GB550,2,2,B,0^FS" + "\r\n" + "^XZ";

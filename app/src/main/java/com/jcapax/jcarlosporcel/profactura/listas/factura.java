@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by jcarlos.porcel on 12/12/2015.
  */
-public class Factura {
+class Factura {
     private int id;
     private int idSucursal;
     private int especificacion;

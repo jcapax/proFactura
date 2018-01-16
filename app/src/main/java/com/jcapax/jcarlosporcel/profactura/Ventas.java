@@ -178,101 +178,40 @@ public class Ventas extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(arrayList.size()==0) {
+                    Toast  t = Toast.makeText(getApplicationContext(), "No se han registrado productos, verificar!!!", Toast.LENGTH_SHORT);
+                    t.show();
 
+                }else{
+                    AlertDialog.Builder dialogo1 = new AlertDialog.Builder(Ventas.this);
+                    dialogo1.setTitle("Atención");
+                    dialogo1.setMessage("¿Los datos registrados serán procesados, desea continuar?");
+                    dialogo1.setIcon(R.drawable.alerta);
+                    dialogo1.setCancelable(false);
+                    dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogo1, int id) {
 
-                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(Ventas.this);
-                dialogo1.setTitle("Atención");
-                dialogo1.setMessage("¿Los datos registrados serán procesados, desea continuar?");
-                dialogo1.setIcon(R.drawable.alerta);
-                dialogo1.setCancelable(false);
-                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
+                            dialog = new ProgressDialog(Ventas.this);
+                            dialog.setMessage("Favor Esperar");
+                            dialog.setTitle("Registrando Venta");
+                            dialog.setIndeterminate(true);
+                            dialog.setCancelable(false);
+                            dialog.show();
 
-                        dialog = new ProgressDialog(Ventas.this);
-                        dialog.setMessage("Favor Esperar");
-                        dialog.setTitle("Registrando Venta");
-                        dialog.setIndeterminate(true);
-                        dialog.setCancelable(false);
-                        dialog.show();
-//***************
-/*
-                        arrayAdpater.clear();
-                        arrayAdpater.notifyDataSetChanged();
-*/
-//***************
-                        Hilo1 hilo1 = new Hilo1();
-                        hilo1.start();
-
-                        //**********************************************************************************************************
-                        //**********************************************************************************************************
-                        //**********************************************************************************************************
-/*
-                        JSONArray jsonArray = new JSONArray();
-
-                        JSONObject jsonMain = new JSONObject();
-
-
-                        String[] detalle;
-
-                        for(int i=0;i<arrayList.size();i++){
-                            try {
-                                JSONObject obj = new JSONObject();
-
-                                detalle = arrayList.get(i).toString().split("-");
-
-                                obj.put("nombreProducto", detalle[0].trim());
-                                obj.put("cantidad",detalle[1].trim());
-
-
-                                jsonArray.put(obj);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
+                            Hilo1 hilo1 = new Hilo1();
+                            hilo1.start();
 
 
                         }
-                        try {
-                            jsonMain.put("productos",jsonArray);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    });
+                    dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogo1, int id) {
+                            Toast  t = Toast.makeText(getApplicationContext(), "Venta Suspendida", Toast.LENGTH_SHORT);
+                            t.show();
                         }
-
-
-                        HttpHandler httpHandler = new HttpHandler();
-                        res = httpHandler.registarVenta("registroVenta.php", _imei, jsonArray.toString());
-
-                        String[] aux = null;
-                        aux = res.split("-");
-                        idVenta      = aux[0];
-                        importeVenta = aux[1];
-
-                        Intent i = new Intent(getApplicationContext(), Facturacion.class);
-                        i.putExtra("idVenta",  idVenta.toString());
-                        i.putExtra("importeVenta", importeVenta.toString());
-                        i.putExtra("jsonArray", jsonArray.toString());
-                        startActivity(i);
-
-                        arrayAdpater.clear();
-                        arrayAdpater.notifyDataSetChanged();
-
-                        finish();
-*/
-
-                        //**********************************************************************************************************
-                        //**********************************************************************************************************
-                        //**********************************************************************************************************
-
-                    }
-                });
-                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-                        Toast  t = Toast.makeText(getApplicationContext(), "Venta Suspendida", Toast.LENGTH_SHORT);
-                        t.show();
-                    }
-                });
-                dialogo1.show();
+                    });
+                    dialogo1.show();
+                }
 
             }
         });
